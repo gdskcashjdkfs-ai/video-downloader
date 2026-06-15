@@ -42,65 +42,38 @@ export default async function handler(req, res) {
             throw new Error("TikTok servers are parsing failed");
 
         } 
-        // 2. Instagram Handler (Dual Server - Main + Backup)
-        else if (cleanUrl.includes('instagram.com')) {
-            try {
-                const res1 = await fetch(`https://api.downloadanyvideo.com/instagram?url=${encodeURIComponent(cleanUrl)}`);
-                const data1 = await res1.json();
-                if (data1 && data1.url) {
-                    return res.status(200).json({ success: true, title: data1.title || "Instagram Video", downloadUrl: data1.url });
-                }
-            } catch (e) {}
+        // 2. Instagram, YouTube, and Facebook Handler (New Powerful API Server)
+        else if (cleanUrl.includes('instagram.com') || cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be') || cleanUrl.includes('facebook.com') || cleanUrl.includes('fb.watch')) {
+            
+            const apiRes = await fetch('https://api.cobalt.tools/api/json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: cleanUrl,
+                    videoQuality: '720',
+                    filenamePattern: 'classic'
+                })
+            });
 
-            // Backup Server
-            const res2 = await fetch(`https://api.vvextractor.com/instagram?url=${encodeURIComponent(cleanUrl)}`);
-            const data2 = await res2.json();
-            if (data2 && data2.url) {
-                return res.status(200).json({ success: true, title: data2.title || "Instagram Video", downloadUrl: data2.url });
-            }
-            throw new Error("Instagram parsing failed");
-        }
-        // 3. YouTube Handler (Dual Server - Main + Backup)
-        else if (cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be')) {
-            try {
-                const res1 = await fetch(`https://api.downloadanyvideo.com/youtube?url=${encodeURIComponent(cleanUrl)}`);
-                const data1 = await res1.json();
-                if (data1 && data1.url) {
-                    return res.status(200).json({ success: true, title: data1.title || "YouTube Video", downloadUrl: data1.url });
-                }
-            } catch (e) {}
+            const apiData = await apiRes.json();
 
-            // Backup Server
-            const res2 = await fetch(`https://api.vvextractor.com/youtube?url=${encodeURIComponent(cleanUrl)}`);
-            const data2 = await res2.json();
-            if (data2 && data2.url) {
-                return res.status(200).json({ success: true, title: data2.title || "YouTube Video", downloadUrl: data2.url });
+            if (apiData && apiData.url) {
+                return res.status(200).json({
+                    success: true,
+                    title: "Downloaded Video",
+                    downloadUrl: apiData.url
+                });
             }
-            throw new Error("YouTube parsing failed");
-        }
-        // 4. Facebook Handler (Dual Server - Main + Backup)
-        else if (cleanUrl.includes('facebook.com') || cleanUrl.includes('fb.watch')) {
-            try {
-                const res1 = await fetch(`https://api.downloadanyvideo.com/facebook?url=${encodeURIComponent(cleanUrl)}`);
-                const data1 = await res1.json();
-                if (data1 && data1.url) {
-                    return res.status(200).json({ success: true, title: data1.title || "Facebook Video", downloadUrl: data1.url });
-                }
-            } catch (e) {}
-
-            // Backup Server
-            const res2 = await fetch(`https://api.vvextractor.com/facebook?url=${encodeURIComponent(cleanUrl)}`);
-            const data2 = await res2.json();
-            if (data2 && data2.url) {
-                return res.status(200).json({ success: true, title: data2.title || "Facebook Video", downloadUrl: data2.url });
-            }
-            throw new Error("Facebook parsing failed");
+            
+            throw new Error("Cobalt parsing failed");
         }
 
         return res.status(400).json({ error: 'This platform link is not supported yet' });
 
     } catch (error) {
-        return res.status(500).json({ error: 'Server error or unstable link. Please try again.' });
+        return res.status(500).json({ error: 'Server connection error. Please try again later.' });
     }
-                }
-                                     
+                    }
