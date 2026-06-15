@@ -42,44 +42,44 @@ export default async function handler(req, res) {
             throw new Error("TikTok servers are parsing failed");
 
         } 
-        // 2. Instagram Handler (Direct Alternative API)
+        // 2. Instagram Handler (Updated with New High-Stability Server)
         else if (cleanUrl.includes('instagram.com')) {
-            const apiRes = await fetch(`https://api.vvextractor.com/instagram?url=${encodeURIComponent(cleanUrl)}`);
+            const apiRes = await fetch(`https://api.socialdownloader.com/instagram?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
             
-            if (apiData && apiData.url) {
+            if (apiData && apiData.video_url) {
                 return res.status(200).json({
                     success: true,
                     title: apiData.title || "Instagram Video",
-                    downloadUrl: apiData.url
+                    downloadUrl: apiData.video_url
                 });
             }
             throw new Error("Instagram parsing failed");
         }
-        // 3. YouTube Handler (Direct Alternative API)
+        // 3. YouTube Handler (Updated with New High-Stability Server)
         else if (cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be')) {
-            const apiRes = await fetch(`https://api.vvextractor.com/youtube?url=${encodeURIComponent(cleanUrl)}`);
+            const apiRes = await fetch(`https://api.socialdownloader.com/youtube?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
             
-            if (apiData && apiData.url) {
+            if (apiData && apiData.video_url) {
                 return res.status(200).json({
                     success: true,
                     title: apiData.title || "YouTube Video",
-                    downloadUrl: apiData.url
+                    downloadUrl: apiData.video_url
                 });
             }
             throw new Error("YouTube parsing failed");
         }
-        // 4. Facebook Handler (Direct Alternative API)
+        // 4. Facebook Handler (Updated with New High-Stability Server)
         else if (cleanUrl.includes('facebook.com') || cleanUrl.includes('fb.watch')) {
-            const apiRes = await fetch(`https://api.vvextractor.com/facebook?url=${encodeURIComponent(cleanUrl)}`);
+            const apiRes = await fetch(`https://api.socialdownloader.com/facebook?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
             
-            if (apiData && apiData.url) {
+            if (apiData && apiData.video_url) {
                 return res.status(200).json({
                     success: true,
                     title: apiData.title || "Facebook Video",
-                    downloadUrl: apiData.url
+                    downloadUrl: apiData.video_url
                 });
             }
             throw new Error("Facebook parsing failed");
@@ -90,5 +90,5 @@ export default async function handler(req, res) {
     } catch (error) {
         return res.status(500).json({ error: 'Connection error. Please try clicking Download again.' });
     }
-                    }
+            }
                 
