@@ -59,14 +59,14 @@ export default async function handler(req, res) {
             cleanUrl.includes('youtu.be')
         ) {
             
-            const apiRes = await fetch(`https://api.vvextractor.com/general?url=${encodeURIComponent(cleanUrl)}`);
+            const apiRes = await fetch(`https://api.inu.io/download?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
 
-            if (apiData && apiData.url) {
+            if (apiData && apiData.result && apiData.result.url) {
                 return res.status(200).json({
                     success: true,
-                    title: apiData.title || "Downloaded Video",
-                    downloadUrl: apiData.url
+                    title: apiData.result.title || "Downloaded Video",
+                    downloadUrl: apiData.result.url
                 });
             }
             
@@ -78,5 +78,5 @@ export default async function handler(req, res) {
     } catch (error) {
         return res.status(500).json({ error: 'Connection error. Please try again.' });
     }
-                }
-                
+                    }
+                                          
