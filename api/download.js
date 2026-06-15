@@ -14,9 +14,7 @@ export default async function handler(req, res) {
         let videoTitle = "Video Download Ready";
         const cleanUrl = videoUrl.trim();
 
-        // فحص شامل لروابط تيك توك العادية والمختصرة (tiktok.com, vm.tiktok, vt.tiktok)
         if (cleanUrl.includes('tiktok.com')) {
-            // السيرفر الأول (الأساسي)
             try {
                 const apiRes = await fetch(`https://api.tikwm.com/api/?url=${encodeURIComponent(cleanUrl)}`);
                 const apiData = await apiRes.json();
@@ -25,7 +23,6 @@ export default async function handler(req, res) {
                     videoTitle = apiData.data.title || "TikTok Video";
                 }
             } catch (e) {
-                // السيرفر الثاني (الاحتياطي في حال فشل الأول)
                 const backupRes = await fetch(`https://api.vvextractor.com/tiktok?url=${encodeURIComponent(cleanUrl)}`);
                 const backupData = await backupRes.json();
                 if (backupData && backupData.url) {
@@ -37,7 +34,6 @@ export default async function handler(req, res) {
                 throw new Error("All TikTok APIs failed");
             }
         } 
-        // فحص باقي المنصات
         else if (cleanUrl.includes('instagram.com') || cleanUrl.includes('facebook.com') || cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be')) {
             const apiRes = await fetch(`https://api.coor.me/download?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
@@ -61,5 +57,5 @@ export default async function handler(req, res) {
     } catch (error) {
         return res.status(500).json({ error: 'Server temporarily busy. Please try another link.' });
     }
-                        }
-                 
+                 }
+                                         
