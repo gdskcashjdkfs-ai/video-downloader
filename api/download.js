@@ -42,7 +42,7 @@ export default async function handler(req, res) {
             throw new Error("TikTok servers are parsing failed");
 
         } 
-        // 2. Instagram Handler (Updated with stable API)
+        // 2. Instagram Handler (Direct Alternative API)
         else if (cleanUrl.includes('instagram.com')) {
             const apiRes = await fetch(`https://api.vvextractor.com/instagram?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
             }
             throw new Error("Instagram parsing failed");
         }
-        // 3. YouTube Handler (Updated with stable API)
+        // 3. YouTube Handler (Direct Alternative API)
         else if (cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be')) {
             const apiRes = await fetch(`https://api.vvextractor.com/youtube?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
             }
             throw new Error("YouTube parsing failed");
         }
-        // 4. Facebook Handler (Updated with stable API)
+        // 4. Facebook Handler (Direct Alternative API)
         else if (cleanUrl.includes('facebook.com') || cleanUrl.includes('fb.watch')) {
             const apiRes = await fetch(`https://api.vvextractor.com/facebook?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
@@ -90,5 +90,5 @@ export default async function handler(req, res) {
     } catch (error) {
         return res.status(500).json({ error: 'Connection error. Please try clicking Download again.' });
     }
-                }
-                    
+                    }
+                
