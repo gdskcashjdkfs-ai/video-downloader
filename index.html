@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Video Downloader</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { background-color: #0b0f19; color: #f3f4f6; font-family: sans-serif; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center justify-between p-4">
+
+    <!-- Top Ad Banner -->
+    <div class="w-full max-w-4xl flex justify-center my-2">
+        <div class="text-xs text-gray-500 bg-gray-900 p-2 rounded border border-gray-850 w-full text-center">
+            [PLACE YOUR TOP BANNER AD CODE HERE]
+        </div>
+    </div>
+
+    <!-- Downloader -->
+    <main class="w-full max-w-md bg-gray-900 p-6 rounded-2xl shadow-2xl border border-gray-800 text-center my-auto">
+        <h1 class="text-2xl font-bold mb-2 text-purple-400">Video Downloader</h1>
+        <p class="text-sm text-gray-400 mb-6">Download TikTok, Instagram, and YouTube videos watermark-free.</p>
+
+        <div class="space-y-4">
+            <input type="url" id="videoUrl" placeholder="Paste video link here..." 
+                class="w-full p-4 bg-gray-850 border border-gray-700 rounded-xl text-white text-center focus:outline-none focus:border-purple-500 transition-all">
+            
+            <button onclick="handleDownload()" id="btnDownload"
+                class="w-full p-4 bg-purple-600 hover:bg-purple-700 font-bold rounded-xl shadow-lg shadow-purple-900/40 transition-all cursor-pointer">
+                Download Now ⚡
+            </button>
+        </div>
+
+        <div id="resultArea" class="hidden mt-6 p-4 bg-gray-800 rounded-xl border border-gray-700">
+            <p id="videoTitle" class="text-sm font-semibold truncate mb-3 text-gray-200"></p>
+            <a id="btnDownloadLink" href="#" target="_blank" rel="noopener noreferrer"
+                class="block w-full p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all">
+                Download Video 🎉
+            </a>
+        </div>
+    </main>
+
+    <!-- Bottom Ad Banner -->
+    <div class="w-full max-w-4xl flex justify-center my-2">
+        <div class="text-xs text-gray-500 bg-gray-900 p-2 rounded border border-gray-850 w-full text-center">
+            [PLACE YOUR BOTTOM BANNER AD CODE HERE]
+        </div>
+    </div>
+
+    <script>
+        async function handleDownload() {
+            const url = document.getElementById('videoUrl').value;
+            const btn = document.getElementById('btnDownload');
+            const resultArea = document.getElementById('resultArea');
+            
+            if(!url) return alert('Please paste a valid link first!');
+
+            btn.innerText = "Extracting video... ⏳";
+            btn.disabled = true;
+            resultArea.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ videoUrl: url })
+                });
+                
+                const data = await response.json();
+
+                if(data.success) {
+                    document.getElementById('videoTitle').innerText = data.title;
+                    document.getElementById('btnDownloadLink').href = data.downloadUrl;
+                    resultArea.classList.remove('hidden');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                alert('Connection error. Please try again.');
+            } finally {
+                btn.innerText = "Download Now ⚡";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+                                                                        </html>
+              
