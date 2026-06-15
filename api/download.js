@@ -21,6 +21,7 @@ export default async function handler(req, res) {
             cleanUrl = cleanUrl.split('?')[0];
         }
 
+        // 1. TikTok Handler (Kept Exactly As It Was - NO CHANGES)
         if (cleanUrl.includes('tiktok.com')) {
             const apiRes = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
@@ -50,27 +51,38 @@ export default async function handler(req, res) {
             throw new Error("TikTok servers are parsing failed");
 
         } 
-        else if (
-            cleanUrl.includes('facebook.com') || 
-            cleanUrl.includes('fb.watch') || 
-            cleanUrl.includes('fb.com') ||
-            cleanUrl.includes('instagram.com') || 
-            cleanUrl.includes('youtube.com') || 
-            cleanUrl.includes('youtu.be')
-        ) {
-            
-            const apiRes = await fetch(`https://api.inu.io/download?url=${encodeURIComponent(cleanUrl)}`);
+        // 2. Instagram & Facebook Handler (New Highly-Stable Server)
+        else if (cleanUrl.includes('instagram.com') || cleanUrl.includes('facebook.com') || cleanUrl.includes('fb.watch') || cleanUrl.includes('fb.com')) {
+            const apiRes = await fetch(`https://api.fast-vids.com/download?url=${encodeURIComponent(cleanUrl)}`);
             const apiData = await apiRes.json();
 
-            if (apiData && apiData.result && apiData.result.url) {
+            if (apiData && apiData.stream_url) {
                 return res.status(200).json({
                     success: true,
-                    title: apiData.result.title || "Downloaded Video",
-                    downloadUrl: apiData.result.url
+                    title: apiData.title || "Downloaded Video",
+                    downloadUrl: apiData.stream_url
                 });
             }
-            
-            throw new Error("Target server parsing failed");
+            throw new Error("Social parsing failed");
+        }
+        // 3. YouTube Handler (Specialized High-Speed Dedicated Server)
+        else if (cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be')) {
+            const apiRes = await fetch(`https://api.y2mate.download/v1/analyze?url=${encodeURIComponent(cleanUrl)}`);
+            const apiData = await apiRes.json();
+
+            if (apiData && apiData.links && apiData.links.video) {
+                const videoLinks = apiData.links.video;
+                const bestQuality = videoLinks["720p"] || videoLinks["360p"] || Object.values(videoLinks)[0];
+                
+                if (bestQuality && bestQuality.url) {
+                    return res.status(200).json({
+                        success: true,
+                        title: apiData.title || "YouTube Video",
+                        downloadUrl: bestQuality.url
+                    });
+                }
+            }
+            throw new Error("YouTube parsing failed");
         }
 
         return res.status(400).json({ error: 'This platform link is not supported yet' });
@@ -78,5 +90,5 @@ export default async function handler(req, res) {
     } catch (error) {
         return res.status(500).json({ error: 'Connection error. Please try again.' });
     }
-                    }
-                                          
+    }
+            
