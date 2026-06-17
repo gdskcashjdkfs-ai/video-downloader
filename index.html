@@ -3,67 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIKDOWN - Video Downloader</title>
+    <title>TIKDOWN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #050505; color: white; font-family: sans-serif; }
-        .gradient-bg { background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%); }
-        .glass-panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .purple-glow { box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
     </style>
 </head>
-<body class="gradient-bg min-h-screen flex flex-col items-center justify-center p-4">
+<body class="p-6 flex flex-col items-center min-h-screen">
 
-    <!-- الجزء الرئيسي للتحميل -->
-    <main class="w-full max-w-3xl text-center">
-        <!-- الشعار والاسم -->
-        <div class="flex items-center justify-center gap-2 mb-10">
-            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">↓</div>
-            <h1 class="text-2xl font-bold tracking-tight">TIKDOWN <span class="text-gray-500 text-sm font-normal">Video Downloader (no watermark)</span></h1>
+    <!-- الشعار في الأعلى بدون قائمة -->
+    <div class="flex items-center gap-3 mb-12 self-start">
+        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold">↓</div>
+        <div>
+            <h1 class="font-bold text-lg">TIKDOWN</h1>
+            <p class="text-xs text-gray-400">Video Downloader (no watermark)</p>
         </div>
-
-        <!-- العنوان الرئيسي -->
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-10">DOWNLOAD TIKTOK VIDEOS<br>NO WATERMARK</h2>
-
-        <!-- مربع الإدخال -->
-        <div class="glass-panel p-2 rounded-2xl flex flex-col md:flex-row gap-2 purple-glow">
-            <input type="url" id="videoUrl" placeholder="Paste your TikTok link here..." 
-                class="flex-1 bg-transparent p-4 outline-none text-white">
-            <button onclick="handleDownload()" id="btnDownload"
-                class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2">
-                <span id="btnText">DOWNLOAD</span>
-            </button>
-        </div>
-
-        <!-- خطوات العمل -->
-        <div class="flex justify-center items-center gap-8 mt-12 text-sm text-gray-400">
-            <div class="flex flex-col items-center"><span>1. COPY LINK</span></div>
-            <span>></span>
-            <div class="flex flex-col items-center"><span>2. PASTE LINK</span></div>
-            <span>></span>
-            <div class="flex flex-col items-center"><span>3. DOWNLOAD</span></div>
-        </div>
-    </main>
-
-    <!-- الأيقونات السفلية -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 w-full max-w-3xl">
-        <div class="glass-panel p-4 rounded-xl text-center">HIGH QUALITY</div>
-        <div class="glass-panel p-4 rounded-xl text-center">ULTRA-FAST</div>
-        <div class="glass-panel p-4 rounded-xl text-center">NO ADS</div>
-        <div class="glass-panel p-4 rounded-xl text-center">TOTALLY SECURE</div>
     </div>
 
-    <script>
-        // إعدادات الروابط البرمجية للتحميل
-        async function handleDownload() {
-            const url = document.getElementById('videoUrl').value;
-            if(!url) return alert("Please paste a link!");
-            
-            // محاكاة عملية التحميل
-            document.getElementById('btnText').innerText = "DOWNLOADING...";
-            // هنا يتم ربط الكود البرمجي الخاص بالتحميل
-            window.open("https://www.effectivecpmnetwork.com/w3tgy35kw?key=bbd509e1a58af7e304caf68fdf7dc945", '_blank');
-        }
-    </script>
+    <!-- العنوان الرئيسي -->
+    <h2 class="text-3xl font-black text-center mb-10 leading-tight">DOWNLOAD TIKTOK VIDEOS<br>NO WATERMARK</h2>
+
+    <!-- مربع الإدخال -->
+    <div class="w-full max-w-md bg-[#1a1a1a] p-6 rounded-3xl border border-gray-800 mb-10">
+        <input type="url" placeholder="Paste your TikTok link here..." 
+            class="w-full bg-transparent border-b border-gray-700 pb-2 mb-6 outline-none text-white">
+        <button class="w-full bg-purple-600 py-4 rounded-xl font-bold">DOWNLOAD</button>
+    </div>
+
+    <!-- خطوات العمل (كما في 1000007366.png) -->
+    <div class="grid grid-cols-3 gap-2 text-center text-xs mb-10 w-full max-w-md">
+        <div>1. COPY<br>LINK</div>
+        <div>></div>
+        <div>2. PASTE<br>LINK</div>
+        <div>></div>
+        <div>3.<br>DOWNLOAD</div>
+    </div>
+
+    <!-- الأيقونات السفلية -->
+    <div class="grid grid-cols-2 gap-3 w-full max-w-md">
+        <div class="border border-gray-700 p-4 rounded-xl text-center text-sm">HIGH QUALITY</div>
+        <div class="border border-gray-700 p-4 rounded-xl text-center text-sm">ULTRA-FAST</div>
+        <div class="border border-gray-700 p-4 rounded-xl text-center text-sm">NO ADS</div>
+        <div class="border border-gray-700 p-4 rounded-xl text-center text-sm">TOTALLY SECURE</div>
+    </div>
+
 </body>
 </html>
