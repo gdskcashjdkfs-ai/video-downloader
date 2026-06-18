@@ -21,22 +21,18 @@
         .tiktok-icon:hover { transform: scale(1.15); }
         .site-footer { background: linear-gradient(180deg, rgba(11, 15, 25, 0) 0%, rgba(147, 51, 234, 0.08) 100%); border-top: 1px solid rgba(147, 51, 234, 0.15); }
         .stat-badge { background: rgba(147, 51, 234, 0.1); border: 1px solid #9333ea; box-shadow: 0 0 15px rgba(147, 51, 234, 0.2); }
+        /* حماية إضافية لمنع الإعلانات من التمدد */
+        .ad-container { min-height: 50px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen items-center justify-between p-4">
 
-    <div class="w-full max-w-4xl flex justify-center my-2">
-        <div id="top-ad-slot" class="w-full text-center">
-            <script>
-              atOptions = {
-                'key' : '245934cca18e577e4289c1bbee57ba84',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
+    <div class="w-full max-w-4xl ad-container">
+        <div id="top-ad-slot">
+            <script type="text/javascript">
+                atOptions = { 'key' : '245934cca18e577e4289c1bbee57ba84', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
             </script>
-            <script src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
         </div>
     </div>
 
@@ -67,216 +63,17 @@
         </div>
     </main>
 
-    <section class="w-full max-w-2xl px-4 my-6">
-        <h3 class="text-center text-sm font-semibold text-gray-400 mb-4 tracking-wider uppercase">What Users Say</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gray-900 p-4 rounded-xl border border-gray-800/60 shadow-md">
-                <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
-                <p class="text-xs italic text-gray-300">"Super fast! Removed the watermark instantly without losing video quality. Highly recommended!"</p>
-                <span class="block text-[10px] text-gray-500 mt-2 font-medium">- Alex M., Content Creator</span>
-            </div>
-            <div class="bg-gray-900 p-4 rounded-xl border border-gray-800/60 shadow-md">
-                <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
-                <p class="text-xs italic text-gray-300">"The best tool I've used in 2026. Very clean interface and no annoying pop-ups."</p>
-                <span class="block text-[10px] text-gray-500 mt-2 font-medium">- Sarah K., Social Manager</span>
-            </div>
-        </div>
-    </section>
+    <section class="w-full max-w-2xl px-4 my-6">...</section>
+    
+    <footer class="site-footer w-full py-6 px-4 text-center mt-auto">...</footer>
 
-    <footer class="site-footer w-full py-6 px-4 text-center mt-auto">
-        <div class="max-w-2xl mx-auto flex flex-col items-center gap-4">
-            <div class="stat-badge px-5 py-1.5 rounded-full inline-flex items-center gap-2">
-                <span class="text-white font-bold text-sm">50,000+</span>
-                <span class="text-gray-400 text-xs">Monthly Active Users</span>
-            </div>
-            <div class="text-center space-y-1">
-                <p class="text-xs text-gray-300 font-semibold">Established in 2026</p>
-                <p class="text-[11px] text-gray-400 max-w-md mx-auto leading-relaxed">
-                    🛡️ Developed in alignment with secure open API architectures by <strong>Meta Open Source</strong>, <strong>Google Cloud</strong> &amp; <strong>ByteDance Tech Ecosystem</strong>.
-                </p>
-                <p class="text-[11px] text-emerald-400 font-medium tracking-wide">✓ Verified Secure Site • Enterprise-Grade Infrastructure</p>
-                <p class="text-[10px] text-gray-600 mt-2">© 2026 TikTok Watermark Remover Pro. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <div class="w-full max-w-4xl flex justify-center my-2">
-        <div id="bottom-ad-slot" class="w-full text-center">
-            <script>
-              atOptions = {
-                'key' : '245934cca18e577e4289c1bbee57ba84',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
+    <div class="w-full max-w-4xl ad-container">
+        <div id="bottom-ad-slot">
+            <script type="text/javascript">
+                atOptions = { 'key' : '245934cca18e577e4289c1bbee57ba84', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
             </script>
-            <script src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
         </div>
     </div>
-
-    <script>
-        let actualDownloadUrl = "#";
-
-        async function handleDownload() {
-            const url = document.getElementById('videoUrl').value;
-            const btn = document.getElementById('btnDownload');
-            const resultArea = document.getElementById('resultArea');
-            if(!url) return alert("Please paste a valid link first!");
-            btn.innerText = "Extracting video... ⏳";
-            btn.disabled = true;
-            try {
-                const response = await fetch('/api/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ videoUrl: url }) });
-                const data = await response.json();
-                if(data.success) { document.getElementById('videoTitle').innerText = data.title; actualDownloadUrl = data.downloadUrl; resultArea.classList.remove('hidden'); } else alert("Error: " + data.error);
-            } catch (err) { alert("Connection error. Please try again."); } finally { btn.innerText = "Download Now ⚡"; btn.disabled = false; }
-        }
-
-        function directDownload(event) {
-            event.preventDefault();
-            window.location.href = actualDownloadUrl;
-        }
-    </script>
-</body>
-    </html>
-                    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Video Downloader | Download TikTok Videos Without Watermark</title>
-    
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="manifest" href="manifest.json">
-    
-    <meta name="description" content="Best site to download TikTok videos watermark-free with high quality and super fast speed.">
-    <meta name="keywords" content="download tiktok videos, tiktok downloader no watermark, tiktok downloader, download from tiktok">
-    
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        body { background-color: #0b0f19; color: #f3f4f6; font-family: sans-serif; }
-        .tiktok-logo-container { display: flex; justify-content: center; margin-bottom: 20px; margin-top: 10px; }
-        .tiktok-icon { width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 0 10px #9333ea); transition: transform 0.3s ease; }
-        .tiktok-icon:hover { transform: scale(1.15); }
-        .site-footer { background: linear-gradient(180deg, rgba(11, 15, 25, 0) 0%, rgba(147, 51, 234, 0.08) 100%); border-top: 1px solid rgba(147, 51, 234, 0.15); }
-        .stat-badge { background: rgba(147, 51, 234, 0.1); border: 1px solid #9333ea; box-shadow: 0 0 15px rgba(147, 51, 234, 0.2); }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen items-center justify-between p-4">
-
-    <div class="w-full max-w-4xl flex justify-center my-2">
-        <div id="top-ad-slot" class="w-full text-center">
-            <script>
-              atOptions = {
-                'key' : '245934cca18e577e4289c1bbee57ba84',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
-        </div>
-    </div>
-
-    <main class="w-full max-w-md bg-gray-900 p-6 rounded-2xl shadow-2xl border border-gray-800 text-center my-auto">
-        <h1 class="text-2xl font-bold mb-2 text-purple-400">TikTok Downloader</h1>
-        <p class="text-sm text-gray-400 mb-4">Download TikTok videos watermark-free instantly.</p>
-
-        <div class="tiktok-logo-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="TikTok" class="tiktok-icon">
-        </div>
-
-        <div class="space-y-4">
-            <input type="url" id="videoUrl" placeholder="Paste TikTok video link here..." 
-                class="w-full p-4 bg-gray-850 border border-gray-700 rounded-xl text-white text-center focus:outline-none focus:border-purple-500 transition-all">
-            
-            <button onclick="handleDownload()" id="btnDownload"
-                class="w-full p-4 bg-purple-600 hover:bg-purple-700 font-bold rounded-xl shadow-lg shadow-purple-900/40 transition-all cursor-pointer">
-                Download Now ⚡
-            </button>
-        </div>
-
-        <div id="resultArea" class="hidden mt-6 p-4 bg-gray-800 rounded-xl border border-gray-700">
-            <p id="videoTitle" class="text-sm font-semibold truncate mb-3 text-gray-200"></p>
-            <a id="btnDownloadLink" href="#" onclick="directDownload(event)" 
-                class="block w-full p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all cursor-pointer">
-                Download Video 🎉
-            </a>
-        </div>
-    </main>
-
-    <section class="w-full max-w-2xl px-4 my-6">
-        <h3 class="text-center text-sm font-semibold text-gray-400 mb-4 tracking-wider uppercase">What Users Say</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gray-900 p-4 rounded-xl border border-gray-800/60 shadow-md">
-                <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
-                <p class="text-xs italic text-gray-300">"Super fast! Removed the watermark instantly without losing video quality. Highly recommended!"</p>
-                <span class="block text-[10px] text-gray-500 mt-2 font-medium">- Alex M., Content Creator</span>
-            </div>
-            <div class="bg-gray-900 p-4 rounded-xl border border-gray-800/60 shadow-md">
-                <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
-                <p class="text-xs italic text-gray-300">"The best tool I've used in 2026. Very clean interface and no annoying pop-ups."</p>
-                <span class="block text-[10px] text-gray-500 mt-2 font-medium">- Sarah K., Social Manager</span>
-            </div>
-        </div>
-    </section>
-
-    <footer class="site-footer w-full py-6 px-4 text-center mt-auto">
-        <div class="max-w-2xl mx-auto flex flex-col items-center gap-4">
-            <div class="stat-badge px-5 py-1.5 rounded-full inline-flex items-center gap-2">
-                <span class="text-white font-bold text-sm">50,000+</span>
-                <span class="text-gray-400 text-xs">Monthly Active Users</span>
-            </div>
-            <div class="text-center space-y-1">
-                <p class="text-xs text-gray-300 font-semibold">Established in 2026</p>
-                <p class="text-[11px] text-gray-400 max-w-md mx-auto leading-relaxed">
-                    🛡️ Developed in alignment with secure open API architectures by <strong>Meta Open Source</strong>, <strong>Google Cloud</strong> &amp; <strong>ByteDance Tech Ecosystem</strong>.
-                </p>
-                <p class="text-[11px] text-emerald-400 font-medium tracking-wide">✓ Verified Secure Site • Enterprise-Grade Infrastructure</p>
-                <p class="text-[10px] text-gray-600 mt-2">© 2026 TikTok Watermark Remover Pro. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <div class="w-full max-w-4xl flex justify-center my-2">
-        <div id="bottom-ad-slot" class="w-full text-center">
-            <script>
-              atOptions = {
-                'key' : '245934cca18e577e4289c1bbee57ba84',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/245934cca18e577e4289c1bbee57ba84/invoke.js"></script>
-        </div>
-    </div>
-
-    <script>
-        let actualDownloadUrl = "#";
-
-        async function handleDownload() {
-            const url = document.getElementById('videoUrl').value;
-            const btn = document.getElementById('btnDownload');
-            const resultArea = document.getElementById('resultArea');
-            if(!url) return alert("Please paste a valid link first!");
-            btn.innerText = "Extracting video... ⏳";
-            btn.disabled = true;
-            try {
-                const response = await fetch('/api/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ videoUrl: url }) });
-                const data = await response.json();
-                if(data.success) { document.getElementById('videoTitle').innerText = data.title; actualDownloadUrl = data.downloadUrl; resultArea.classList.remove('hidden'); } else alert("Error: " + data.error);
-            } catch (err) { alert("Connection error. Please try again."); } finally { btn.innerText = "Download Now ⚡"; btn.disabled = false; }
-        }
-
-        function directDownload(event) {
-            event.preventDefault();
-            window.location.href = actualDownloadUrl;
-        }
-    </script>
-</body>
-    </html>
-                    
+    </body>
+</html>
