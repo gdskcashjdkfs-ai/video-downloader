@@ -1,0 +1,13 @@
+{
+  "name": "TikTok Video Downloader",
+  "short_name": "TikTok Downloader",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
