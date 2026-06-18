@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Video Downloader Pro</title>
+    <title>TikTok Video Downloader | Download TikTok Videos Without Watermark</title>
     
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
@@ -59,7 +59,7 @@
 
         <div id="resultArea" class="hidden mt-6 p-4 bg-gray-800 rounded-xl border border-gray-700">
             <p id="videoTitle" class="text-sm font-semibold truncate mb-3 text-gray-200"></p>
-            <a id="btnDownloadLink" href="#" onclick="openAdAndDownload(event)" target="_blank" rel="noopener noreferrer"
+            <a id="btnDownloadLink" href="#" onclick="directDownload(event)" 
                 class="block w-full p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all cursor-pointer">
                 Download Video 🎉
             </a>
@@ -115,8 +115,6 @@
     </div>
 
     <script>
-        const smartlink3 = "https://www.effectivecpmnetwork.com/w3tgy35kw?key=bbd509e1a58af7e304caf68fdf7dc945"; 
-        const smartlink2 = "https://www.effectivecpmnetwork.com/qasnevb7mp?key=052269672d6841e04b6ea1c7b00a2522"; 
         let actualDownloadUrl = "#";
 
         async function handleDownload() {
@@ -133,13 +131,11 @@
             } catch (err) { alert("Connection error. Please try again."); } finally { btn.innerText = "Download Now ⚡"; btn.disabled = false; }
         }
 
-        function openAdAndDownload(event) {
+        function directDownload(event) {
             event.preventDefault();
-            window.open(smartlink3, '_blank');
-            window.open(smartlink2, '_blank');
             window.location.href = actualDownloadUrl;
         }
     </script>
 </body>
     </html>
-    
+                    
