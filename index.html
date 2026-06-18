@@ -54,8 +54,9 @@
         </div>
 
         <div id="resultArea" class="hidden mt-6 p-4 bg-gray-800 rounded-xl border border-gray-700">
-            <p id="videoTitle" class="text-sm font-semibold truncate mb-3 text-gray-200"></p>
-            <a id="btnDownloadLink" href="#" class="block w-full p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all cursor-pointer">
+            <p id="videoTitle" class="text-sm font-semibold truncate mb-3 text-gray-200">Video Ready</p>
+            <a id="btnDownloadLink" href="#" target="_blank" 
+                class="block w-full p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all cursor-pointer">
                 Download Video 🎉
             </a>
         </div>
@@ -83,16 +84,25 @@
     <script>
         function handleDownload() {
             const url = document.getElementById('videoUrl').value;
-            if(!url) { alert("Please enter a link!"); return; }
             const btn = document.getElementById('btnDownload');
-            btn.innerText = "Processing...";
+            const resultArea = document.getElementById('resultArea');
+            const btnDownloadLink = document.getElementById('btnDownloadLink');
+
+            if(!url) { alert("Please enter a link!"); return; }
             
-            // Simulation of download process
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+            
+            // Simulation logic: Replace the URL inside href with your real API output
             setTimeout(() => {
-                document.getElementById('resultArea').classList.remove('hidden');
+                // Here you can set the final link after your API processes it
+                btnDownloadLink.href = url; 
+                resultArea.classList.remove('hidden');
                 btn.innerText = "Download Now ⚡";
+                btn.disabled = false;
             }, 1500);
         }
     </script>
 </body>
-</html>
+    </html>
+    
