@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="jn6IMwGJmsEjPQU_f0_h6hb8KtDrTmfbQKvHG6CXHKE" />
     <title>TikTok Video Downloader Pro</title>
+    <!-- الإضافات الجديدة لتحسين الأرشفة -->
+    <meta name="description" content="Download TikTok videos watermark-free instantly. The fastest and most secure TikTok downloader tool in 2026.">
+    <link rel="canonical" href="https://video-downloader-kappa-one.vercel.app/" />
+    <meta property="og:title" content="TikTok Video Downloader Pro" />
+    <!-- نهاية الإضافات -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body { background-color: #0b0f19; color: #f3f4f6; font-family: sans-serif; }
@@ -81,12 +86,14 @@
     </div>
 
     <script>
+        let currentLang = 'en';
         const translations = {
             en: { title: "TikTok Downloader", desc: "Download TikTok videos watermark-free instantly.", placeholder: "Paste TikTok video link here...", btnDownload: "Download Now ⚡", btnExtracting: "Extracting video... ⏳", btnResult: "Download Video 🎉", reviewsHeading: "What Users Say", review1Text: '"Super fast! Removed the watermark instantly without losing video quality. Highly recommended!"', review1Author: "- Alex M., Content Creator", review2Text: '"The best tool I\'ve used in 2026. Very clean interface and no annoying pop-ups."', review2Author: "- Sarah K., Social Manager", statText: "Monthly Active Users", established: "Established in 2026", alertEmpty: "Please paste a valid link first!", alertError: "Error: ", alertConnection: "Connection error. Please try again." },
             ar: { title: "محمل تيك توك", desc: "قم بتحميل فيديوهات تيك توك بدون علامة مائية فوراً.", placeholder: "الصق رابط فيديو تيك توك هنا...", btnDownload: "التحميل الآن ⚡", btnExtracting: "جاري استخراج الفيديو... ⏳", btnResult: "تحميل الفيديو 🎉", reviewsHeading: "ماذا يقول مستخدمونا", review1Text: '"سريع جداً! قام بإزالة العلامة المائية فوراً دون خسارة جودة الفيديو. نوصي به بشدة!"', review1Author: "- أليكس م.، صانع محتوى", review2Text: '"أفضل أداة استخدمتها في عام 2026. واجهة نظيفة للغاية ولا توجد إعلانات منبثقة مزعجة."', review2Author: "- سارة ك.، مديرة شبكات تواصل", statText: "زائر نشط شهرياً", established: "تأسس عام 2026", alertEmpty: "يرجى لصق رابط صالح أولاً!", alertError: "خطأ: ", alertConnection: "خطأ في الاتصال. يرجى المحاولة مرة أخرى." }
         };
 
         function switchLanguage(lang) {
+            currentLang = lang;
             const t = translations[lang];
             if(lang === 'ar') document.body.classList.add('rtl'); else document.body.classList.remove('rtl');
             document.getElementById('main-title').innerText = t.title;
@@ -104,21 +111,16 @@
         }
 
         async function handleDownload(event) {
-            // الحماية هنا: لمنع إعادة تحميل الصفحة
             if (event) {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            
             const url = document.getElementById('videoUrl').value;
             const btn = document.getElementById('btnDownload');
             const resultArea = document.getElementById('resultArea');
-            
-            if(!url) return alert(translations[currentLang || 'en'].alertEmpty);
-            
-            btn.innerText = "Processing..."; 
+            if(!url) return alert(translations[currentLang].alertEmpty);
+            btn.innerText = translations[currentLang].btnExtracting;
             btn.disabled = true;
-            
             try {
                 const response = await fetch('/api/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ videoUrl: url }) });
                 const data = await response.json();
@@ -126,10 +128,10 @@
                     document.getElementById('videoTitle').innerText = data.title; 
                     document.getElementById('btnDownloadLink').href = data.downloadUrl;
                     resultArea.classList.remove('hidden'); 
-                } else alert(data.error);
-            } catch (err) { alert("Error"); } finally { btn.innerText = "Download Now ⚡"; btn.disabled = false; }
+                } else alert(translations[currentLang].alertError + data.error);
+            } catch (err) { alert(translations[currentLang].alertConnection); } finally { btn.innerText = translations[currentLang].btnDownload; btn.disabled = false; }
         }
     </script>
 </body>
-            </html>
-                
+    </html>
+    
